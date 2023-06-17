@@ -1,1 +1,9 @@
 *.db
+*.obj
+*.pdb
+*.ilk
+*.exe
+*.pch
+*.opendb
+debug/
+release/
