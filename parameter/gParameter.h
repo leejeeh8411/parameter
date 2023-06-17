@@ -2,6 +2,7 @@
 
 #include <map>
 #include <vector>
+#include <typeinfo>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ struct PARAM {
 	double dValue;
 };
 
+
 class gParameter
 {
 public:
@@ -29,7 +31,12 @@ public:
 	bool gParameter::InsertParam(string key, bool value);
 	bool gParameter::InsertParam(string key, int value);
 	bool gParameter::InsertParam(string key, double value);
+
 	vector<string> gParameter::GetListParam();
+
+	void gParameter::GetParam(string key, bool& value);
+	void gParameter::GetParam(string key, int& value);
+	void gParameter::GetParam(string key, double& value);
 
 private:
 	map<string, PARAM> m_map;
