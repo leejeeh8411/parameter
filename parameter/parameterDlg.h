@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "gParameter.h"
+
 
 // CparameterDlg 대화 상자
 class CparameterDlg : public CDialogEx
@@ -11,6 +13,8 @@ class CparameterDlg : public CDialogEx
 // 생성입니다.
 public:
 	CparameterDlg(CWnd* pParent = NULL);	// 표준 생성자입니다.
+
+	gParameter m_param;
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME

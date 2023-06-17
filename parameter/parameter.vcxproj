@@ -185,6 +185,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gParameter.h" />
     <ClInclude Include="parameter.h" />
     <ClInclude Include="parameterDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gParameter.cpp" />
     <ClCompile Include="parameter.cpp" />
     <ClCompile Include="parameterDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
