@@ -1,9 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include <map>
 #include <vector>
 #include <typeinfo>
-
+#include <string>
+#include <fstream>
+#include <iostream>
 using namespace std;
 
 enum DataType
@@ -14,10 +16,16 @@ enum DataType
 };
 
 struct PARAM {
-	int DataType;
+	int nDataType;
 	bool bValue;
 	int nValue;
 	double dValue;
+	PARAM() {
+		nDataType = 0;
+		bValue = 0;
+		nValue = 0;
+		dValue = 0;
+	}
 };
 
 
@@ -27,17 +35,23 @@ public:
 	gParameter();
 	~gParameter();
 
-	
-	bool gParameter::InsertParam(string key, bool value);
-	bool gParameter::InsertParam(string key, int value);
-	bool gParameter::InsertParam(string key, double value);
+
+	bool gParameter::InsertParam(string strKey, bool bValue);
+	bool gParameter::InsertParam(string strKey, int nValue);
+	bool gParameter::InsertParam(string strKey, double dValue);
 
 	vector<string> gParameter::GetListParam();
 
-	void gParameter::GetParam(string key, bool& value);
-	void gParameter::GetParam(string key, int& value);
-	void gParameter::GetParam(string key, double& value);
+	void gParameter::GetParam(string strKey, bool& bValue);
+	void gParameter::GetParam(string strKey, int& nValue);
+	void gParameter::GetParam(string strKey, double& dValue);
 
+	bool LoadParameter(CString strPath);
+	bool SaveParameter(CString strPath);
+
+	bool SetParam(string strKey, bool bValue);
+	bool SetParam(string strKey, int nValue);
+	bool SetParam(string strKey, double dValue);
 private:
 	map<string, PARAM> m_map;
 	bool gParameter::InsertParam(string key, PARAM value);
