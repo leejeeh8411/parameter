@@ -104,73 +104,64 @@ vector<string> gParameter::GetListParam()
 // strKey에 들어 있는 값을 bValue에 복사
 void gParameter::GetParam(string strKey, bool& bValue)
 {
-	bool bRet = false;
-
 	for (const auto & pair : m_map) {
 		string str = pair.first;
 		if (strKey == str) {
 			PARAM stParam = pair.second;
 			if (stParam.nDataType == TYPE_BOOLEAN) {
-				bRet = (bool)stParam.bValue;
+				bValue = (bool)stParam.bValue;
 			}
 			else if (stParam.nDataType == TYPE_INT) {
-				bRet = (bool)stParam.nValue;
+				bValue = (bool)stParam.nValue;
 			}
 			else if (stParam.nDataType == TYPE_DOUBLE) {
-				bRet = (bool)stParam.dValue;
+				bValue = (bool)stParam.dValue;
 			}
 			break;
 		}
 	}
-	bValue = bRet;
 }
 
 // strKey에 들어 있는 값을 nValue에 복사
 void gParameter::GetParam(string strKey, int& nValue)
 {
-	int bRet = false;
-
 	for (const auto & pair : m_map) {
 		string str = pair.first;
 		if (strKey == str) {
 			PARAM stParam = pair.second;
 			if (stParam.nDataType == TYPE_BOOLEAN) {
-				bRet = (int)stParam.bValue;
+				nValue = (int)stParam.bValue;
 			}
 			else if (stParam.nDataType == TYPE_INT) {
-				bRet = (int)stParam.nValue;
+				nValue = (int)stParam.nValue;
 			}
 			else if (stParam.nDataType == TYPE_DOUBLE) {
-				bRet = (int)stParam.dValue;
+				nValue = (int)stParam.dValue;
 			}
 			break;
 		}
 	}
-	nValue = bRet;
 }
 
 // strKey에 들어 있는 값을 dValue에 복사
 void gParameter::GetParam(string strKey, double& dValue)
 {
-	double bRet = false;
-
 	for (const auto & pair : m_map) {
 		string str = pair.first;
 		if (strKey == str) {
 			PARAM stParam = pair.second;
 			if (stParam.nDataType == TYPE_BOOLEAN) {
-				bRet = (double)stParam.bValue;
+				dValue = (double)stParam.bValue;
 			}
 			else if (stParam.nDataType == TYPE_INT) {
-				bRet = (double)stParam.nValue;
+				dValue = (double)stParam.nValue;
 			}
 			else if (stParam.nDataType == TYPE_DOUBLE) {
-				bRet = (double)stParam.dValue;
+				dValue = (double)stParam.dValue;
 			}
 			break;
 		}
 	}
-	dValue = bRet;
 }
 
 // Parameter 정보가 저장되어 있는 경로를 입력받아 정보를 읽음
@@ -252,10 +243,10 @@ bool gParameter::SetParam(string strKey, bool bValue)
 			PARAM stParam = pair.second;
 			stParam.bValue = bValue;
 			m_map[strKey] = stParam;
-			break;
+			return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 // strKey에 해당하는 값을 nValue로 Update
@@ -269,10 +260,10 @@ bool gParameter::SetParam(string strKey, int nValue)
 			PARAM stParam = pair.second;
 			stParam.nValue = nValue;
 			m_map[strKey] = stParam;
-			break;
+			return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 // strKey에 해당하는 값을 dValue로 Update
@@ -286,8 +277,8 @@ bool gParameter::SetParam(string strKey, double dValue)
 			PARAM stParam = pair.second;
 			stParam.dValue = dValue;
 			m_map[strKey] = stParam;
-			break;
+			return true;
 		}
 	}
-	return true;
+	return false;
 }
