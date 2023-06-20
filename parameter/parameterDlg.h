@@ -40,7 +40,7 @@ public:
 	int m_nTest1;
 	double m_dTest1;
 	BOOL m_bTest1;
-
+	CString m_strTest1;
 	void InitParameterMap();
 	afx_msg void OnBnClickedButtonSaveParameter();
 	afx_msg void OnBnClickedButtonLoadParameter();
