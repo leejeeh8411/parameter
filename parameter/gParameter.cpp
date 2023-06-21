@@ -92,7 +92,7 @@ bool gParameter::InsertParam(string strKey, CString strValue)
 //파라미터 리스트를 호출
 vector<string> gParameter::GetListParam()
 {
-	int nSize = m_map.size();
+	int nSize = static_cast<int>(m_map.size());
 	vector<string> vtParamList;
 
 	for (const auto& pair : m_map)
@@ -115,11 +115,11 @@ void gParameter::GetParam(string strKey, bool& bValue)
 		{
 			PARAM stParam = pair.second;
 			if (stParam.nDataType == TYPE_BOOLEAN)
-				bValue = (bool)stParam.bValue;
+				bValue = stParam.bValue;
 			else if (stParam.nDataType == TYPE_INT)
-				bValue = (bool)stParam.nValue;
+				bValue = !!stParam.nValue;
 			else if (stParam.nDataType == TYPE_DOUBLE)
-				bValue = (bool)stParam.dValue;
+				bValue = !!stParam.dValue;
 			break;
 		}
 	}
@@ -191,7 +191,7 @@ bool gParameter::LoadParameter(CString strPath)
 	{
 		while (getline(file, line))
 		{
-			int nLen = line.find((":"), 0);
+			int nLen = static_cast<int>(line.find(("="), 0));
 			string strKey = line.substr(0, nLen);
 			strValue = line.substr(nLen + 1, nLen);
 			for (const auto& pair : m_map)
@@ -245,13 +245,13 @@ bool gParameter::SaveParameter(CString strPath)
 		PARAM stParam = pair.second;
 		CString strTemp;
 		if (stParam.nDataType == TYPE_BOOLEAN)
-			strTemp.Format(_T("%s:%s\n"), str.c_str(), stParam.bValue ? _T("true") : _T("false"));
+			strTemp.Format(_T("%s=%s\n"), str.c_str(), stParam.bValue ? _T("true") : _T("false"));
 		else if (stParam.nDataType == TYPE_INT)
-			strTemp.Format(_T("%s:%d\n"), str.c_str(), stParam.nValue);
+			strTemp.Format(_T("%s=%d\n"), str.c_str(), stParam.nValue);
 		else if (stParam.nDataType == TYPE_DOUBLE)
-			strTemp.Format(_T("%s:%.3f\n"), str.c_str(), stParam.dValue);
+			strTemp.Format(_T("%s=%.3f\n"), str.c_str(), stParam.dValue);
 		else if (stParam.nDataType == TYPE_STRING)
-			strTemp.Format(_T("%s:%s\n"), str.c_str(), stParam.strValue);
+			strTemp.Format(_T("%s=%s\n"), str.c_str(), stParam.strValue);
 		file.WriteString(strTemp);
 	}
 	file.Close();

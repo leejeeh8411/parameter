@@ -168,7 +168,6 @@ void CparameterDlg::InitParameterMap()
 	Parameter.InsertParam("Double 1", 2.2);
 	Parameter.InsertParam("Bool 1", false);
 	Parameter.InsertParam("String 1", CString(_T("abcd")));
-	Parameter.InsertParam("aaa", _T(""));
 }
 
 // Parameter 저장
