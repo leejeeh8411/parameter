@@ -1,5 +1,5 @@
-
-// parameterDlg.h : Çì´õ ÆÄÀÏ
+ï»¿
+// parameterDlg.h : í—¤ë” íŒŒì¼
 //
 
 #pragma once
@@ -7,32 +7,41 @@
 #include "gParameter.h"
 
 
-// CparameterDlg ´ëÈ­ »óÀÚ
+// CparameterDlg ëŒ€í™” ìƒì
 class CparameterDlg : public CDialogEx
 {
-// »ı¼ºÀÔ´Ï´Ù.
+// ìƒì„±ì…ë‹ˆë‹¤.
 public:
-	CparameterDlg(CWnd* pParent = NULL);	// Ç¥ÁØ »ı¼ºÀÚÀÔ´Ï´Ù.
+	CparameterDlg(CWnd* pParent = NULL);	// í‘œì¤€ ìƒì„±ìì…ë‹ˆë‹¤.
 
 	gParameter m_param;
 
-// ´ëÈ­ »óÀÚ µ¥ÀÌÅÍÀÔ´Ï´Ù.
+// ëŒ€í™” ìƒì ë°ì´í„°ì…ë‹ˆë‹¤.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_PARAMETER_DIALOG };
 #endif
 
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV Áö¿øÀÔ´Ï´Ù.
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV ì§€ì›ì…ë‹ˆë‹¤.
 
 
-// ±¸ÇöÀÔ´Ï´Ù.
+// êµ¬í˜„ì…ë‹ˆë‹¤.
 protected:
 	HICON m_hIcon;
 
-	// »ı¼ºµÈ ¸Ş½ÃÁö ¸Ê ÇÔ¼ö
+	// ìƒì„±ëœ ë©”ì‹œì§€ ë§µ í•¨ìˆ˜
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	gParameter Parameter;
+	int m_nTest1;
+	double m_dTest1;
+	BOOL m_bTest1;
+	CString m_strTest1;
+	void InitParameterMap();
+	afx_msg void OnBnClickedButtonSaveParameter();
+	afx_msg void OnBnClickedButtonLoadParameter();
 };
