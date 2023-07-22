@@ -54,6 +54,9 @@ CparameterDlg::CparameterDlg(CWnd* pParent /*=NULL*/)
 	, m_nTest1(0)
 	, m_dTest1(0)
 	, m_strTest1(_T(""))
+	, m_nDataType(0)
+	, m_strKey(_T(""))
+	, m_strValue(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -65,6 +68,10 @@ void CparameterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_DOUBLE1, m_dTest1);
 	DDX_Check(pDX, IDC_CHECK_BOOL1, m_bTest1);
 	DDX_Text(pDX, IDC_EDIT_STRING1, m_strTest1);
+	DDX_Control(pDX, IDC_LIST1, m_listParam);
+	DDX_Radio(pDX, IDC_RADIO1, m_nDataType);
+	DDX_Text(pDX, IDC_EDIT1, m_strKey);
+	DDX_Text(pDX, IDC_EDIT2, m_strValue);
 }
 
 BEGIN_MESSAGE_MAP(CparameterDlg, CDialogEx)
@@ -73,6 +80,8 @@ BEGIN_MESSAGE_MAP(CparameterDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_SAVE_PARAMETER, &CparameterDlg::OnBnClickedButtonSaveParameter)
 	ON_BN_CLICKED(IDC_BUTTON_LOAD_PARAMETER, &CparameterDlg::OnBnClickedButtonLoadParameter)
+	ON_CONTROL_RANGE(BN_CLICKED, IDC_RADIO1, IDC_RADIO4, RadioCtrl)
+	ON_BN_CLICKED(IDC_BUTTON1, &CparameterDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -108,8 +117,49 @@ BOOL CparameterDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-	InitParameterMap();
+	InitParamControl();
+
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
+}
+
+void CparameterDlg::RadioCtrl(UINT radio_no)
+{
+	UpdateData(TRUE);
+
+	switch (radio_no)
+	{
+	case 0:
+		m_nDataType = 0;
+		break;
+	case 1:
+		m_nDataType = 1;
+		break;
+	case 2:
+		m_nDataType = 2;
+		break;
+	case 3:
+		m_nDataType = 3;
+		break;
+	default:
+		break;
+	}
+
+	UpdateData(FALSE);
+}
+
+void CparameterDlg::InitParamControl()
+{
+	m_listParam.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+
+	m_listParam.InsertColumn(
+		0,              // Rank/order of item
+		"ID",          // Caption for this header
+		LVCFMT_LEFT,    // Relative position of items under header
+		100);           // Width of items under header
+
+	m_listParam.InsertColumn(1, "Name", LVCFMT_CENTER, 80);
+	m_listParam.InsertColumn(2, "Age", LVCFMT_LEFT, 100);
+	m_listParam.InsertColumn(3, "Address", LVCFMT_LEFT, 80);
 }
 
 void CparameterDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -203,4 +253,84 @@ void CparameterDlg::OnBnClickedButtonLoadParameter()
 	Parameter.GetParam("String 1", m_strTest1);
 
 	UpdateData(FALSE);
+}
+
+
+
+void CparameterDlg::OnBnClickedButton1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+
+	string strKey = m_strKey;
+	CString strValue = m_strValue;
+	CString strType = GetType();
+
+	//convType
+	bool bVal = false;
+	int nVal = 0;
+	double dVal = 0;
+	CString strVal;
+
+	if (strType == "bool") {
+		if (strValue == "true") {
+			bVal = true;
+		}
+		else if(strValue == "false"){
+			bVal = false;
+		}
+		else {
+			bVal = false;
+		}
+		m_param.InsertParam(strKey, bVal);
+	}
+	else if (strType == "int") {
+		nVal = atoi(strValue);
+		m_param.InsertParam(strKey, nVal);
+	}
+	else if (strType == "double") {
+		dVal = atof(strValue);
+		m_param.InsertParam(strKey, dVal);
+	}
+	else if (strType == "string") {
+		strVal = strValue;
+		m_param.InsertParam(strKey, strVal);
+	}	
+}
+
+CString CparameterDlg::GetType()
+{
+	CString strRet;
+
+	switch (m_nDataType)
+	{
+	case 0:
+		strRet = "bool";
+		break;
+	case 1:
+		strRet = "int";
+		break;
+	case 2:
+		strRet = "double";
+		break;
+	case 3:
+		strRet = "string";
+		break;
+	default:
+		break;
+	}
+
+	return strRet;
+}
+
+
+void CparameterDlg::UpdateParam()
+{
+	vector<string> vt_param_list = m_param.GetListParam();
+
+	for (int i = 0; i < vt_param_list.size(); i++) {
+		string strParamName = vt_param_list[i];
+
+		m_param.GetParam()
+	}
 }

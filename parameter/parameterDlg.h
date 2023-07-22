@@ -5,6 +5,7 @@
 #pragma once
 
 #include "gParameter.h"
+#include "afxcmn.h"
 
 
 // CparameterDlg 대화 상자
@@ -24,6 +25,7 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 지원입니다.
 
+	void CparameterDlg::InitParamControl();
 
 // 구현입니다.
 protected:
@@ -44,4 +46,12 @@ public:
 	void InitParameterMap();
 	afx_msg void OnBnClickedButtonSaveParameter();
 	afx_msg void OnBnClickedButtonLoadParameter();
+	CListCtrl m_listParam;
+	CString CparameterDlg::GetType();
+	int m_nDataType;
+	afx_msg void RadioCtrl(UINT ID);
+	CString m_strKey;
+	CString m_strValue;
+	afx_msg void OnBnClickedButton1();
+	void CparameterDlg::UpdateParam();
 };
