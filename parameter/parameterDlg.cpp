@@ -160,6 +160,32 @@ void CparameterDlg::InitParamControl()
 	m_listParam.InsertColumn(1, "Name", LVCFMT_CENTER, 80);
 	m_listParam.InsertColumn(2, "Age", LVCFMT_LEFT, 100);
 	m_listParam.InsertColumn(3, "Address", LVCFMT_LEFT, 80);
+
+	bool b = true;
+	pair<string, PARAM> makedParam1 = m_param.MakeParam("param_key_bool", b);
+	m_param.SetParam(makedParam1);
+	int n = 34;
+	pair<string, PARAM> makedParam2 = m_param.MakeParam("param_key_int", n);
+	m_param.SetParam(makedParam2);
+	float f = 2.4;
+	pair<string, PARAM> makedParam3 = m_param.MakeParam("param_key_float", f);
+	m_param.SetParam(makedParam3);
+	double d = 3.56;
+	pair<string, PARAM> makedParam4 = m_param.MakeParam("param_key_double", d);
+	m_param.SetParam(makedParam4);
+	CString str = "abcdefg";
+	pair<string, PARAM> makedParam5 = m_param.MakeParam("param_key_string", str);
+	m_param.SetParam(makedParam5);
+	
+
+	vector<string> vt_paramList = m_param.GetListParam();
+
+	for (int i = 0; i < vt_paramList.size(); i++) {
+		string key = vt_paramList[i];
+		pair<string, PARAM> searchedParam = m_param.GetParam(key);
+
+		int a = 10;
+	}
 }
 
 void CparameterDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -214,10 +240,10 @@ HCURSOR CparameterDlg::OnQueryDragIcon()
 // 변수 초기화
 void CparameterDlg::InitParameterMap()
 {
-	Parameter.InsertParam("Int 1", 1);
+	/*Parameter.InsertParam("Int 1", 1);
 	Parameter.InsertParam("Double 1", 2.2);
 	Parameter.InsertParam("Bool 1", false);
-	Parameter.InsertParam("String 1", CString(_T("abcd")));
+	Parameter.InsertParam("String 1", CString(_T("abcd")));*/
 }
 
 // Parameter 저장
@@ -245,7 +271,7 @@ void CparameterDlg::OnBnClickedButtonLoadParameter()
 {
 	CString strPath;
 	strPath.Format(_T("C:\\glim\\test.ini"));
-	Parameter.LoadParameter(strPath);
+	//Parameter.LoadParameter(strPath);
 	
 	/*Parameter.GetParam("Int 1", m_nTest1);
 	Parameter.GetParam("Double 1", m_dTest1);
@@ -272,30 +298,6 @@ void CparameterDlg::OnBnClickedButton1()
 	double dVal = 0;
 	CString strVal;
 
-	if (strType == "bool") {
-		if (strValue == "true") {
-			bVal = true;
-		}
-		else if(strValue == "false"){
-			bVal = false;
-		}
-		else {
-			bVal = false;
-		}
-		m_param.InsertParam(strKey, bVal);
-	}
-	else if (strType == "int") {
-		nVal = atoi(strValue);
-		m_param.InsertParam(strKey, nVal);
-	}
-	else if (strType == "double") {
-		dVal = atof(strValue);
-		m_param.InsertParam(strKey, dVal);
-	}
-	else if (strType == "string") {
-		strVal = strValue;
-		m_param.InsertParam(strKey, strVal);
-	}	
 
 	UpdateParam();
 }
@@ -333,7 +335,7 @@ void CparameterDlg::UpdateParam()
 	for (int i = 0; i < vt_param_list.size(); i++) {
 		string strParamName = vt_param_list[i];
 		CString strValue;
-		auto val = m_param.GetParam(strParamName, strValue);
+		//auto val = m_param.GetParam(strParamName, strValue);
 		int a = 10;
 	}
 }

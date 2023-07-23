@@ -38,7 +38,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	gParameter Parameter;
+	
 	int m_nTest1;
 	double m_dTest1;
 	BOOL m_bTest1;

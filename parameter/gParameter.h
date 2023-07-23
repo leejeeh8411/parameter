@@ -2,11 +2,8 @@
 
 #include <map>
 #include <vector>
-#include <typeinfo>
 #include <string>
-#include <fstream>
-#include <iostream>
-#include <sstream>
+
 using namespace std;
 
 enum DataType
@@ -17,18 +14,20 @@ enum DataType
 	TYPE_STRING = 3
 };
 
+static const int STRING_DATA_LENGTH = 50;
+
 struct PARAM {
 	int nDataType;
 	bool bValue;
 	int nValue;
 	double dValue;
-	CString strValue;
+	char chValue[STRING_DATA_LENGTH];
 	PARAM() {
 		nDataType = 0;
 		bValue = 0;
 		nValue = 0;
 		dValue = 0;
-		strValue = _T("");
+		memset(chValue, NULL, STRING_DATA_LENGTH);
 	}
 };
 
@@ -39,29 +38,20 @@ public:
 	gParameter();
 	~gParameter();
 
+	pair<string, PARAM> MakeParam(CString _strKey, bool bVal);
+	pair<string, PARAM> MakeParam(CString _strKey, int nVal);
+	pair<string, PARAM> MakeParam(CString _strKey, float fVal);
+	pair<string, PARAM> MakeParam(CString _strKey, double dVal);
+	pair<string, PARAM> MakeParam(CString _strKey, CString strVal);
 
-	bool gParameter::InsertParam(string strKey, bool bValue);
-	bool gParameter::InsertParam(string strKey, int nValue);
-	bool gParameter::InsertParam(string strKey, double dValue);
-	bool gParameter::InsertParam(string strKey, CString strValue);
+	pair<string, PARAM> GetParam(string strKey);
+	bool				SetParam(pair<string, PARAM> data);
 
-	vector<string> gParameter::GetListParam();
+	vector<string>		GetListParam();
 
-	//void gParameter::GetParam(string strKey, bool& bValue);
-	//void gParameter::GetParam(string strKey, int& nValue);
-	//void gParameter::GetParam(string strKey, double& dValue);
 
-	decltype(auto) gParameter::GetParam(string strKey, CString& strValue);
-
-	bool LoadParameter(CString strPath);
-	bool SaveParameter(CString strPath);
-
-	bool SetParam(string strKey, bool bValue);
-	bool SetParam(string strKey, int nValue);
-	bool SetParam(string strKey, double dValue);
-	bool SetParam(string strKey, CString strValue);
 private:
-	map<string, PARAM> m_map;
-	bool gParameter::InsertParam(string key, PARAM value);
+	map<string, PARAM>	m_map;
+
 };
 
