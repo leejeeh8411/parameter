@@ -47,10 +47,11 @@ public:
 
 	vector<string> gParameter::GetListParam();
 
-	void gParameter::GetParam(string strKey, bool& bValue);
-	void gParameter::GetParam(string strKey, int& nValue);
-	void gParameter::GetParam(string strKey, double& dValue);
-	void gParameter::GetParam(string strKey, CString& strValue);
+	//void gParameter::GetParam(string strKey, bool& bValue);
+	//void gParameter::GetParam(string strKey, int& nValue);
+	//void gParameter::GetParam(string strKey, double& dValue);
+
+	decltype(auto) gParameter::GetParam(string strKey, CString& strValue);
 
 	bool LoadParameter(CString strPath);
 	bool SaveParameter(CString strPath);

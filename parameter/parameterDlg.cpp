@@ -223,7 +223,7 @@ void CparameterDlg::InitParameterMap()
 // Parameter 저장
 void CparameterDlg::OnBnClickedButtonSaveParameter()
 {
-	CString strPath;
+	/*CString strPath;
 	strPath.Format(_T("C:\\glim\\test.ini"));
 	Parameter.SaveParameter(strPath);
 	
@@ -236,7 +236,7 @@ void CparameterDlg::OnBnClickedButtonSaveParameter()
 	Parameter.GetParam("Double 1", m_dTest1);
 	Parameter.GetParam("Bool 1", m_bTest1);
 	Parameter.GetParam("String 1", m_strTest1);
-
+*/
 	UpdateData(FALSE);
 }
 
@@ -247,10 +247,10 @@ void CparameterDlg::OnBnClickedButtonLoadParameter()
 	strPath.Format(_T("C:\\glim\\test.ini"));
 	Parameter.LoadParameter(strPath);
 	
-	Parameter.GetParam("Int 1", m_nTest1);
+	/*Parameter.GetParam("Int 1", m_nTest1);
 	Parameter.GetParam("Double 1", m_dTest1);
 	Parameter.GetParam("Bool 1", m_bTest1);
-	Parameter.GetParam("String 1", m_strTest1);
+	Parameter.GetParam("String 1", m_strTest1);*/
 
 	UpdateData(FALSE);
 }
@@ -296,6 +296,8 @@ void CparameterDlg::OnBnClickedButton1()
 		strVal = strValue;
 		m_param.InsertParam(strKey, strVal);
 	}	
+
+	UpdateParam();
 }
 
 CString CparameterDlg::GetType()
@@ -330,7 +332,8 @@ void CparameterDlg::UpdateParam()
 
 	for (int i = 0; i < vt_param_list.size(); i++) {
 		string strParamName = vt_param_list[i];
-
-		m_param.GetParam()
+		CString strValue;
+		auto val = m_param.GetParam(strParamName, strValue);
+		int a = 10;
 	}
 }

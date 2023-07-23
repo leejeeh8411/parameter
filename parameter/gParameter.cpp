@@ -105,68 +105,68 @@ vector<string> gParameter::GetListParam()
 }
 
 
-// strKey에 들어 있는 값을 bValue에 복사
-void gParameter::GetParam(string strKey, bool& bValue)
-{
-	for (const auto& pair : m_map)
-	{
-		string str = pair.first;
-		if (strKey == str)
-		{
-			PARAM stParam = pair.second;
-			if (stParam.nDataType == TYPE_BOOLEAN)
-				bValue = stParam.bValue;
-			else if (stParam.nDataType == TYPE_INT)
-				bValue = !!stParam.nValue;
-			else if (stParam.nDataType == TYPE_DOUBLE)
-				bValue = !!stParam.dValue;
-			break;
-		}
-	}
-}
+//// strKey에 들어 있는 값을 bValue에 복사
+//void gParameter::GetParam(string strKey, bool& bValue)
+//{
+//	for (const auto& pair : m_map)
+//	{
+//		string str = pair.first;
+//		if (strKey == str)
+//		{
+//			PARAM stParam = pair.second;
+//			if (stParam.nDataType == TYPE_BOOLEAN)
+//				bValue = stParam.bValue;
+//			else if (stParam.nDataType == TYPE_INT)
+//				bValue = !!stParam.nValue;
+//			else if (stParam.nDataType == TYPE_DOUBLE)
+//				bValue = !!stParam.dValue;
+//			break;
+//		}
+//	}
+//}
 
-// strKey에 들어 있는 값을 nValue에 복사
-void gParameter::GetParam(string strKey, int& nValue)
-{
-	for (const auto& pair : m_map)
-	{
-		string str = pair.first;
-		if (strKey == str)
-		{
-			PARAM stParam = pair.second;
-			if (stParam.nDataType == TYPE_BOOLEAN)
-				nValue = (int)stParam.bValue;
-			else if (stParam.nDataType == TYPE_INT)
-				nValue = (int)stParam.nValue;
-			else if (stParam.nDataType == TYPE_DOUBLE)
-				nValue = (int)stParam.dValue;
-			break;
-		}
-	}
-}
+//// strKey에 들어 있는 값을 nValue에 복사
+//void gParameter::GetParam(string strKey, int& nValue)
+//{
+//	for (const auto& pair : m_map)
+//	{
+//		string str = pair.first;
+//		if (strKey == str)
+//		{
+//			PARAM stParam = pair.second;
+//			if (stParam.nDataType == TYPE_BOOLEAN)
+//				nValue = (int)stParam.bValue;
+//			else if (stParam.nDataType == TYPE_INT)
+//				nValue = (int)stParam.nValue;
+//			else if (stParam.nDataType == TYPE_DOUBLE)
+//				nValue = (int)stParam.dValue;
+//			break;
+//		}
+//	}
+//}
 
-// strKey에 들어 있는 값을 dValue에 복사
-void gParameter::GetParam(string strKey, double& dValue)
-{
-	for (const auto& pair : m_map)
-	{
-		string str = pair.first;
-		if (strKey == str)
-		{
-			PARAM stParam = pair.second;
-			if (stParam.nDataType == TYPE_BOOLEAN)
-				dValue = (double)stParam.bValue;
-			else if (stParam.nDataType == TYPE_INT)
-				dValue = (double)stParam.nValue;
-			else if (stParam.nDataType == TYPE_DOUBLE)
-				dValue = (double)stParam.dValue;
-			break;
-		}
-	}
-}
+//// strKey에 들어 있는 값을 dValue에 복사
+//void gParameter::GetParam(string strKey, double& dValue)
+//{
+//	for (const auto& pair : m_map)
+//	{
+//		string str = pair.first;
+//		if (strKey == str)
+//		{
+//			PARAM stParam = pair.second;
+//			if (stParam.nDataType == TYPE_BOOLEAN)
+//				dValue = (double)stParam.bValue;
+//			else if (stParam.nDataType == TYPE_INT)
+//				dValue = (double)stParam.nValue;
+//			else if (stParam.nDataType == TYPE_DOUBLE)
+//				dValue = (double)stParam.dValue;
+//			break;
+//		}
+//	}
+//}
 
 // strKey에 들어 있는 값을 strValue에 복사
-void gParameter::GetParam(string strKey, CString& strValue)
+decltype(auto) gParameter::GetParam(string strKey, CString& strValue)
 {
 	for (const auto& pair : m_map)
 	{
@@ -174,11 +174,23 @@ void gParameter::GetParam(string strKey, CString& strValue)
 		if (strKey == str)
 		{
 			PARAM stParam = pair.second;
-			if (stParam.nDataType == TYPE_STRING)
+			if (stParam.nDataType == TYPE_BOOLEAN) {
+			}
+			if (stParam.nDataType == TYPE_INT) {
+
+			}
+			if (stParam.nDataType == TYPE_DOUBLE) {
+
+			}
+			if (stParam.nDataType == TYPE_STRING) {
+
+			}
 				strValue = stParam.strValue;
 			break;
 		}
 	}
+
+	return true;
 }
 
 // Parameter 정보가 저장되어 있는 경로를 입력받아 정보를 읽음
