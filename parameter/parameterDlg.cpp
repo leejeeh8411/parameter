@@ -118,6 +118,16 @@ BOOL CparameterDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	InitParamControl();
+	CreateParam();
+
+	vector<string> vt_paramList = m_param.GetListParam();
+
+	for (int i = 0; i < vt_paramList.size(); i++) {
+		string key = vt_paramList[i];
+		pair<string, PARAM> searchedParam = m_param.GetParam(key);
+
+		int a = 10;
+	}
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -147,6 +157,56 @@ void CparameterDlg::RadioCtrl(UINT radio_no)
 	UpdateData(FALSE);
 }
 
+//파라미터 형태를 초기화 한다.
+void CparameterDlg::CreateParam()
+{
+	//파라미터 경로 설정
+	m_param.SetParameterPath("D:\\para.ini");
+
+	//그룹 설정
+	CString strGroup[2];
+	strGroup[0].Format("Input");
+	strGroup[1].Format("Output");
+
+	//파라미터 초기화
+	//일단 이 작업을 프로그램 내에서 해줘야 ini 생성 및 로드가 가능함
+	bool inb = true;
+	pair<string, PARAM> makedParamIn1 = m_param.MakeParam(strGroup[0], "input_bool", inb);
+	m_param.SetParam(makedParamIn1);
+	int inn = 34;
+	pair<string, PARAM> makedParamIn2 = m_param.MakeParam(strGroup[0], "input_int", inn);
+	m_param.SetParam(makedParamIn2);
+	float inf = 2.4;
+	pair<string, PARAM> makedParamIn3 = m_param.MakeParam(strGroup[0], "input_float", inf);
+	m_param.SetParam(makedParamIn3);
+	double ind = 3.56;
+	pair<string, PARAM> makedParamIn4 = m_param.MakeParam(strGroup[0], "input_double", ind);
+	m_param.SetParam(makedParamIn4);
+	CString instr = "abcdefg";
+	pair<string, PARAM> makedParamIn5 = m_param.MakeParam(strGroup[0], "input_string", instr);
+	m_param.SetParam(makedParamIn5);
+
+	bool ob = true;
+	pair<string, PARAM> makedParamOut1 = m_param.MakeParam(strGroup[1], "output_bool", ob);
+	m_param.SetParam(makedParamOut1);
+	int on = 34;
+	pair<string, PARAM> makedParamOut2 = m_param.MakeParam(strGroup[1], "output_int", on);
+	m_param.SetParam(makedParamOut2);
+	float of = 2.4;
+	pair<string, PARAM> makedParamOut3 = m_param.MakeParam(strGroup[1], "output_float", of);
+	m_param.SetParam(makedParamOut3);
+	double od = 3.56;
+	pair<string, PARAM> makedParamOut4 = m_param.MakeParam(strGroup[1], "output_double", od);
+	m_param.SetParam(makedParamOut4);
+	CString ostr = "abcdefg";
+	pair<string, PARAM> makedParamOut5 = m_param.MakeParam(strGroup[1], "output_string", ostr);
+	m_param.SetParam(makedParamOut5);
+
+	m_param.LoadParam();
+	m_param.SaveParam();
+	
+}
+
 void CparameterDlg::InitParamControl()
 {
 	m_listParam.SetExtendedStyle(LVS_EX_FULLROWSELECT);
@@ -161,31 +221,6 @@ void CparameterDlg::InitParamControl()
 	m_listParam.InsertColumn(2, "Age", LVCFMT_LEFT, 100);
 	m_listParam.InsertColumn(3, "Address", LVCFMT_LEFT, 80);
 
-	bool b = true;
-	pair<string, PARAM> makedParam1 = m_param.MakeParam("param_key_bool", b);
-	m_param.SetParam(makedParam1);
-	int n = 34;
-	pair<string, PARAM> makedParam2 = m_param.MakeParam("param_key_int", n);
-	m_param.SetParam(makedParam2);
-	float f = 2.4;
-	pair<string, PARAM> makedParam3 = m_param.MakeParam("param_key_float", f);
-	m_param.SetParam(makedParam3);
-	double d = 3.56;
-	pair<string, PARAM> makedParam4 = m_param.MakeParam("param_key_double", d);
-	m_param.SetParam(makedParam4);
-	CString str = "abcdefg";
-	pair<string, PARAM> makedParam5 = m_param.MakeParam("param_key_string", str);
-	m_param.SetParam(makedParam5);
-	
-
-	vector<string> vt_paramList = m_param.GetListParam();
-
-	for (int i = 0; i < vt_paramList.size(); i++) {
-		string key = vt_paramList[i];
-		pair<string, PARAM> searchedParam = m_param.GetParam(key);
-
-		int a = 10;
-	}
 }
 
 void CparameterDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -240,44 +275,20 @@ HCURSOR CparameterDlg::OnQueryDragIcon()
 // 변수 초기화
 void CparameterDlg::InitParameterMap()
 {
-	/*Parameter.InsertParam("Int 1", 1);
-	Parameter.InsertParam("Double 1", 2.2);
-	Parameter.InsertParam("Bool 1", false);
-	Parameter.InsertParam("String 1", CString(_T("abcd")));*/
+
 }
 
 // Parameter 저장
 void CparameterDlg::OnBnClickedButtonSaveParameter()
 {
-	/*CString strPath;
-	strPath.Format(_T("C:\\glim\\test.ini"));
-	Parameter.SaveParameter(strPath);
-	
-	Parameter.SetParam("Int 1", 100);
-	Parameter.SetParam("Double 1", 200.2);
-	Parameter.SetParam("Bool 1", true);
-	Parameter.SetParam("String 1", CString(_T("wxyz")));
 
-	Parameter.GetParam("Int 1", m_nTest1);
-	Parameter.GetParam("Double 1", m_dTest1);
-	Parameter.GetParam("Bool 1", m_bTest1);
-	Parameter.GetParam("String 1", m_strTest1);
-*/
 	UpdateData(FALSE);
 }
 
 // Parameter 불러오기
 void CparameterDlg::OnBnClickedButtonLoadParameter()
 {
-	CString strPath;
-	strPath.Format(_T("C:\\glim\\test.ini"));
-	//Parameter.LoadParameter(strPath);
 	
-	/*Parameter.GetParam("Int 1", m_nTest1);
-	Parameter.GetParam("Double 1", m_dTest1);
-	Parameter.GetParam("Bool 1", m_bTest1);
-	Parameter.GetParam("String 1", m_strTest1);*/
-
 	UpdateData(FALSE);
 }
 

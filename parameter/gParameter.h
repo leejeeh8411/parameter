@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include "ini.h"
 
 using namespace std;
 
@@ -21,12 +22,14 @@ struct PARAM {
 	bool bValue;
 	int nValue;
 	double dValue;
+	char chGroupName[STRING_DATA_LENGTH];
 	char chValue[STRING_DATA_LENGTH];
 	PARAM() {
 		nDataType = 0;
 		bValue = 0;
 		nValue = 0;
 		dValue = 0;
+		memset(chGroupName, NULL, STRING_DATA_LENGTH);
 		memset(chValue, NULL, STRING_DATA_LENGTH);
 	}
 };
@@ -38,20 +41,30 @@ public:
 	gParameter();
 	~gParameter();
 
-	pair<string, PARAM> MakeParam(CString _strKey, bool bVal);
-	pair<string, PARAM> MakeParam(CString _strKey, int nVal);
-	pair<string, PARAM> MakeParam(CString _strKey, float fVal);
-	pair<string, PARAM> MakeParam(CString _strKey, double dVal);
-	pair<string, PARAM> MakeParam(CString _strKey, CString strVal);
+	void LoadParam();
+	void SaveParam();
+	void SetParameterPath(CString strPath);
+
+	pair<string, PARAM> MakeParam(CString strGroupName, CString _strKey, bool bVal);
+	pair<string, PARAM> MakeParam(CString strGroupName, CString _strKey, int nVal);
+	pair<string, PARAM> MakeParam(CString strGroupName, CString _strKey, float fVal);
+	pair<string, PARAM> MakeParam(CString strGroupName, CString _strKey, double dVal);
+	pair<string, PARAM> MakeParam(CString strGroupName, CString _strKey, CString strVal);
 
 	pair<string, PARAM> GetParam(string strKey);
+	CString             GetValueString(string strKey);
 	bool				SetParam(pair<string, PARAM> data);
 
 	vector<string>		GetListParam();
 
+	
+
+	//test
+	void gParameter::TestIni();
 
 private:
 	map<string, PARAM>	m_map;
+	string _parameter_path;
 
 };
 

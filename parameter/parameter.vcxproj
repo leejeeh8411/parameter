@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gParameter.h" />
+    <ClInclude Include="ini.h" />
     <ClInclude Include="parameter.h" />
     <ClInclude Include="parameterDlg.h" />
     <ClInclude Include="Resource.h" />
