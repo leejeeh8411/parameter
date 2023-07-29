@@ -43,7 +43,8 @@ public:
 
 	void LoadParam();
 	void SaveParam();
-	void SetParameterPath(CString strPath);
+	string	GetParameterPath();
+	void	SetParameterPath(CString strPath);
 
 	pair<string, PARAM> MakeParam(CString strGroupName, CString _strKey, bool bVal);
 	pair<string, PARAM> MakeParam(CString strGroupName, CString _strKey, int nVal);
@@ -54,10 +55,12 @@ public:
 	pair<string, PARAM> GetParam(string strKey);
 	CString             GetValueString(string strKey);
 	bool				SetParam(pair<string, PARAM> data);
+	bool				SetParam(pair<string, PARAM> data, string value);
 
 	vector<string>		GetListParam();
+	vector<string>		GetListParamFromGroupName(string search_group_name);
+	vector<string>		GetListGroup();
 
-	
 
 	//test
 	void gParameter::TestIni();

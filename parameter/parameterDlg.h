@@ -44,15 +44,12 @@ public:
 	double m_dTest1;
 	BOOL m_bTest1;
 	CString m_strTest1;
-	void InitParameterMap();
 	afx_msg void OnBnClickedButtonSaveParameter();
 	afx_msg void OnBnClickedButtonLoadParameter();
 	CListCtrl m_listParam;
-	CString CparameterDlg::GetType();
 	int m_nDataType;
 	afx_msg void RadioCtrl(UINT ID);
 	CString m_strKey;
 	CString m_strValue;
 	afx_msg void OnBnClickedButton1();
-	void CparameterDlg::UpdateParam();
 };

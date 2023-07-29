@@ -120,15 +120,6 @@ BOOL CparameterDlg::OnInitDialog()
 	InitParamControl();
 	CreateParam();
 
-	vector<string> vt_paramList = m_param.GetListParam();
-
-	for (int i = 0; i < vt_paramList.size(); i++) {
-		string key = vt_paramList[i];
-		pair<string, PARAM> searchedParam = m_param.GetParam(key);
-
-		int a = 10;
-	}
-
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -202,7 +193,14 @@ void CparameterDlg::CreateParam()
 	pair<string, PARAM> makedParamOut5 = m_param.MakeParam(strGroup[1], "output_string", ostr);
 	m_param.SetParam(makedParamOut5);
 
-	m_param.LoadParam();
+	string param_path = m_param.GetParameterPath();
+	CFileFind fileFind;
+	BOOL bExist = fileFind.FindFile(param_path.c_str());
+
+	if (bExist == true) {
+		m_param.LoadParam();
+	}
+	
 	m_param.SaveParam();
 	
 }
@@ -272,11 +270,6 @@ HCURSOR CparameterDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-// 변수 초기화
-void CparameterDlg::InitParameterMap()
-{
-
-}
 
 // Parameter 저장
 void CparameterDlg::OnBnClickedButtonSaveParameter()
@@ -294,59 +287,13 @@ void CparameterDlg::OnBnClickedButtonLoadParameter()
 
 
 
+//파라미터를 set test
 void CparameterDlg::OnBnClickedButton1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	UpdateData(TRUE);
-
-	string strKey = m_strKey;
-	CString strValue = m_strValue;
-	CString strType = GetType();
-
-	//convType
-	bool bVal = false;
-	int nVal = 0;
-	double dVal = 0;
-	CString strVal;
-
-
-	UpdateParam();
+	pair<string, PARAM> param = m_param.GetParam("input_string");
+	string val = "input_string_edit";
+	m_param.SetParam(param, val);
+	m_param.SaveParam();
 }
 
-CString CparameterDlg::GetType()
-{
-	CString strRet;
-
-	switch (m_nDataType)
-	{
-	case 0:
-		strRet = "bool";
-		break;
-	case 1:
-		strRet = "int";
-		break;
-	case 2:
-		strRet = "double";
-		break;
-	case 3:
-		strRet = "string";
-		break;
-	default:
-		break;
-	}
-
-	return strRet;
-}
-
-
-void CparameterDlg::UpdateParam()
-{
-	vector<string> vt_param_list = m_param.GetListParam();
-
-	for (int i = 0; i < vt_param_list.size(); i++) {
-		string strParamName = vt_param_list[i];
-		CString strValue;
-		//auto val = m_param.GetParam(strParamName, strValue);
-		int a = 10;
-	}
-}
